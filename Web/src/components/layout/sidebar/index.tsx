@@ -1,19 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { Menu } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../../../utils/constants/routes';
-import { toastMessage } from '../../../utils/functions';
 
-import DeleteModal from '../../../components/common/Modal/DeleteModal';
 
-import { authAPI } from '../../../services/api/auth';
-import { usePersonalInfo } from '../../../services/hooks/settings';
 import { authStore } from '../../../services/store/auth';
 import Button from '../../common/Button';
-import { AdminIcon, Driver } from '../../svg';
+import { AdminIcon } from '../../svg';
 import { StyledLayout } from '../Layout.Styled';
+import DeleteModal from '../../../components/common/Modal/DeleteModal';
 
 function createMenuItem(
   link?: string,
@@ -75,16 +72,9 @@ function compareLinkAndReturnKey(items: any, currentPath: any): any {
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { actions, userData } = authStore((state) => state);
+  const { actions } = authStore((state) => state);
+
   const [isLogoutModal, setIsLogoutModal] = useState(false);
-
-  const { data: personalInfo } = usePersonalInfo(userData?.user_id);
-
-  useEffect(() => {
-    if (personalInfo) {
-      actions.updateUser(personalInfo?.data);
-    }
-  }, [personalInfo]);
 
   const activeTab = useMemo(() => {
     const activeLinkKey = compareLinkAndReturnKey(items, location?.pathname);
@@ -99,18 +89,8 @@ const Sidebar = () => {
   }, [location.pathname]);
 
   const handleLogout = useCallback(() => {
-    authAPI
-      .logout()
-      .then((res: any) => {
-        actions.authFail();
-        navigate(ROUTES.signIn);
-        toastMessage('success', res?.message);
-        setIsLogoutModal(false);
-      })
-      .catch((err) => {
-        toastMessage('error', err?.message);
-      });
-  }, [actions, navigate]);
+    actions.authFail();
+  }, [ navigate]);
 
   return (
     <StyledLayout.Sider width={'276px'}>

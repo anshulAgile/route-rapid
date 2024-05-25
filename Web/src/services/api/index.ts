@@ -31,15 +31,15 @@ export function setAxiosInterceptor() {
     },
     (err) => {
       authStore.getState().actions.loaderChange(false);
+      console.log('err: ', err);
       if (err.response) {
         if (err.response.status === 401) {
           authStore.getState().actions.authFail();
-          toastMessage('error', err?.response?.message);
-          return Promise.reject(err);
+          return Promise.reject(err?.response?.data);
         } else {
           return Promise.reject(err?.response?.data);
         }
-      } else if (err.request) {
+      } else {
         return Promise.reject({
           response: {
             data: {

@@ -20,7 +20,7 @@ export const setupAxios = () => {
     const userData = JSON.parse(userStorage);
 
     if (token) {
-      actions.authSuccess({ data: userData });
+      actions.authSuccess({ ...userData });
     } else {
       actions.authFail();
     }

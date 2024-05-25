@@ -3,7 +3,9 @@ export interface ISignInReq {
   password: string;
 }
 
-export interface ISignInRes {
-  _id: string;
-  authToken: string;
+export interface ISignInRes{
+  token: string
+  expiration: string
+  role: string
 }
+

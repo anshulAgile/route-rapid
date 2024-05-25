@@ -17,7 +17,7 @@ const DeleteModal = ({
     <ModalWrapper
       width={width ?? 500}
       open={open}
-      // onOk={onOk}
+      onOk={onOk}
       onCancel={onCancel}
       centered={true}
       className="common-modal delete-modal text-center"

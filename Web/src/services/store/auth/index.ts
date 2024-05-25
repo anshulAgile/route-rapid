@@ -3,21 +3,20 @@ import { create } from 'zustand';
 import { LocalStorageKeys } from '../../../utils/constants';
 
 import apiInstance from '../../api';
-import { IUserData } from './types';
+import { ISignInRes } from 'services/api/auth/types';
 
 export type IAuthStore = {
   isLoading: boolean;
   isLoggedIn: boolean;
-  userData: IUserData;
+  userData: ISignInRes;
   isSuperAdmin?: boolean;
 };
 
 interface IAuthAction {
   actions: {
     loaderChange: (status: IAuthStore['isLoading']) => void;
-    authSuccess: (payload: { data: IUserData }) => void;
+    authSuccess: (payload:  ISignInRes ) => void;
     authFail: () => void;
-    updateUser: (payload: IUserData) => void;
   };
 }
 
@@ -25,19 +24,19 @@ export const authStore = create<IAuthStore & IAuthAction>((set) => ({
   // initial state
   isLoading: false,
   isLoggedIn: false,
-  userData: {} as IUserData,
+  userData: {} as ISignInRes,
 
   // Actions
   actions: {
     loaderChange: (status) => set((state) => ({ ...state, isLoading: status })),
     authSuccess: (payload) =>
       set((state) => {
-        apiInstance.defaults.headers.common['Authorization'] = `Token ${payload.data.token}`;
-        localStorage.setItem(LocalStorageKeys.authToken, JSON.stringify(payload.data.token));
-        localStorage.setItem(LocalStorageKeys.user, JSON.stringify(payload.data));
+        apiInstance.defaults.headers.common['Authorization'] = `Token ${payload.token}`;
+        localStorage.setItem(LocalStorageKeys.authToken, JSON.stringify(payload.token));
+        localStorage.setItem(LocalStorageKeys.user, JSON.stringify(payload));
         return {
           ...state,
-          userData: payload.data,
+          userData: payload,
           isLoggedIn: true
         };
       }),
@@ -48,25 +47,9 @@ export const authStore = create<IAuthStore & IAuthAction>((set) => ({
         localStorage.removeItem(LocalStorageKeys.user);
         return {
           ...state,
-          userData: {} as IUserData,
+          userData: {} as ISignInRes,
           isLoggedIn: false
         };
       }),
-    updateUser: (payload) =>
-      set((state) => {
-        const updatedUser = {
-          ...state?.userData,
-          business_name: payload?.business_name,
-          email: payload?.email,
-          first_name: payload?.first_name,
-          last_name: payload?.last_name,
-          profile_pic: payload?.profile_pic
-        };
-        localStorage.setItem(LocalStorageKeys.user, JSON.stringify(updatedUser));
-        return {
-          ...state,
-          userData: updatedUser
-        };
-      })
   }
 }));

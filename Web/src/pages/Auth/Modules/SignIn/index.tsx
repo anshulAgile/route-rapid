@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { Col, Form, Row } from 'antd';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ import AuthLayout from '../../../../components/common/AuthLayout';
 import Button from '../../../../components/common/Button';
 import { RenderPasswordInput, RenderTextInput } from '../../../../components/common/FormField';
 
+import { ISignInReq } from 'services/api/auth/types';
+import { IApiError } from 'utils/Types';
 import { authAPI } from '../../../../services/api/auth';
 import { authStore } from '../../../../services/store/auth';
 
@@ -17,35 +19,27 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const { isLoggedIn, actions } = authStore((state) => state);
-  const [isFormValid, setIsFormValid] = useState(false);
 
   const onSubmit = useCallback(
-    (data: any) => {
+    (data: ISignInReq) => {
       authAPI
         .signIn(data)
-        .then((res: any) => {
-          if (res?.data?.user_type === 1) {
-            actions.authSuccess(res);
-            navigate(ROUTES.admin);
-            toastMessage('success', res?.message);
-          } else {
-            toastMessage('error', 'This email is not linked with any admin account, please check.');
-          }
+        .then((res) => {
+          console.log('res: ', res.result);
+            actions.authSuccess(res?.result);
+            navigate(ROUTES.police);
         })
-        .catch((err) => {
-          toastMessage('error', err?.message);
+        .catch((err:IApiError) => {
+          toastMessage('error', err?.responseException?.exceptionMessage);
         });
     },
     [actions, navigate]
   );
 
-  const onFieldsChange = (_: any, allFields: any) => {
-    const isValid = allFields.every((field: any) => field.errors.length === 0 && field.value);
-    setIsFormValid(isValid);
-  };
+ 
 
   if (isLoggedIn) {
-    return <Navigate to={ROUTES.admin} />;
+    return <Navigate to={ROUTES.police} />;
   }
 
   return (
@@ -56,7 +50,6 @@ const SignIn: React.FC = () => {
           form={form}
           autoComplete="off"
           className="auth-form"
-          onFieldsChange={onFieldsChange}
         >
           <h2 className="auth-title">Welcome Back</h2>
           <Row className="auth-form-row">
@@ -100,7 +93,6 @@ const SignIn: React.FC = () => {
                 size="middle"
                 htmlType="submit"
                 className="auth-next-btn"
-                disabled={!isFormValid}
               >
                 Login
               </Button>
