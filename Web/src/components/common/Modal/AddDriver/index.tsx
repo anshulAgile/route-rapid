@@ -9,7 +9,7 @@ import { RenderPasswordInput, RenderPhoneNumber, RenderTextInput } from '../../F
 import { CommonModalStyle } from '../Modal.Styled';
 import { IModalProps } from '../types';
 
-const AddEditAdmin = ({
+const AddDriver = ({
   open,
   handleFinish,
   onCancel,
@@ -101,23 +101,6 @@ const AddEditAdmin = ({
               ]}
             />
           </Col>
-          <RenderTextInput
-            col={{ xs: 24, md: 24 }}
-            name="email"
-            type="email"
-            placeholder="Email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter email address.'
-              },
-              {
-                type: 'email',
-                message: 'Please enter valid email address.'
-              }
-            ]}
-          />
           <RenderPhoneNumber
             col={{ xs: 24 }}
             label="Phone Number"
@@ -136,6 +119,24 @@ const AddEditAdmin = ({
               }
             ]}
           />
+          <Row>
+            <Col xs={24} className="row-col-fields">
+              <RenderTextInput
+                col={{ xs: 11, md: 11 }}
+                name="firstName"
+                type="number"
+                placeholder="Licence Number"
+                label="LICENCE NUMBER"
+              />
+              <RenderTextInput
+                col={{ xs: 11, md: 11 }}
+                name="age"
+                type="number"
+                placeholder="Age"
+                label="AGE"
+              />
+            </Col>
+          </Row>
           {!Object.keys(formData).length && (
             <>
               <RenderPasswordInput
@@ -222,4 +223,4 @@ const AddEditAdmin = ({
   );
 };
 
-export default AddEditAdmin;
+export default AddDriver;

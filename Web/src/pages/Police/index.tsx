@@ -7,7 +7,6 @@ import { debounce, formatPhoneNumber, toastMessage } from '../../utils/functions
 
 import Button from '../../components/common/Button';
 import { RenderTextInput } from '../../components/common/FormField';
-import AddEditAdmin from '../../components/common/Modal/AddEditAdmin';
 import DeleteModal from '../../components/common/Modal/DeleteModal';
 import { DotsIcon, LeftIcon, RightIcon, SearchIcon } from '../../components/svg';
 
@@ -15,6 +14,7 @@ import { adminAPI } from '../../services/api/admin';
 import { useAdminList } from '../../services/hooks/admin';
 import { adminKeys } from '../../services/hooks/queryKeys';
 import { Wrapper } from './style';
+import AddEditPolice from '../../components/common/Modal/AddEditPolice';
 
 const Police = () => {
   const queryClient = useQueryClient();
@@ -161,7 +161,7 @@ const Police = () => {
     {
       title: 'MOBILE NUMBER',
       dataIndex: 'mobile',
-      width: 50,
+      width: 150,
       render: (text: string) => {
         return <div>{formatPhoneNumber(text)}</div>;
       }
@@ -174,11 +174,6 @@ const Police = () => {
     {
       title: 'AGE',
       dataIndex: 'age',
-      width: 50
-    },
-    {
-      title: 'CITY',
-      dataIndex: 'city',
       width: 50
     },
     {
@@ -268,7 +263,7 @@ const Police = () => {
           </div>
         </div>
       </Wrapper>
-      <AddEditAdmin
+      <AddEditPolice
         open={isAddEditAdminModal}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}

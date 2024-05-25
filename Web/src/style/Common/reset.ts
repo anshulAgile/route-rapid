@@ -88,6 +88,7 @@ footer {
 input,
 textarea,
 select {
+    font-family: ${theme?.font.family.montserrat} !important;
     -webkit-appearance: none;
     -ms-appearance: none;
     -moz-appearance: none;
@@ -108,6 +109,10 @@ svg {
     height: auto;
     border-style: none;
     vertical-align: middle;
+}
+
+input::placeholder{
+    font-family: ${theme?.font.family.montserrat} !important;
 }
 
 ::-moz-selection {
