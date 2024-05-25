@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Backend/Core/obj/Debug/net8.0
+/Backend/RapidRoute/obj
+/Backend/Services/obj/Debug/net8.0
+/Backend/RapidRoute/.vs/RapidRoute
+/Backend/App/bin/Debug/net8.0
+/Backend/App/obj
+/Backend/Common/bin/Debug/net8.0
+/Backend/Common/obj
+/Backend/Core/bin/Debug/net8.0
+/Backend/Core/obj
+/Backend/RapidRoute/bin/Debug/net8.0
+/Backend/Services/bin/Debug/net8.0
+/Backend/Services/obj
