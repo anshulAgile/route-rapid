@@ -1,22 +1,23 @@
-export interface IUser {
-  _id: string;
-  depot: string;
-  userName: string;
-  mobileNo: string;
-  point: number;
-  createdDate: string;
-  updatedDate: string;
-}
-
-export interface IUserListReq {
-  page: number;
-  limit: number;
-  search?: string;
-  column?: string;
-  order?: string;
-}
-
-export interface IUserListRes {
-  adminUserList: IUser[];
-  total_records: number;
-}
+export type IPoliceRes = {
+    id: string
+    firstName: string
+    lastName: string
+    licenceNumber: string
+    age: number
+    createdOnUTC: string
+    lastModifiedOnUTC: any
+    mobileNumber: string
+  }[]
+  
+  export type ICreatePoliceReq = {
+    mobileNo: string
+    password: string
+    role: string
+    firstname: string
+    lastName: string
+    licenceNumber: string
+    age: number
+    latitude:string | null
+    longitude: string | null
+  }
+  

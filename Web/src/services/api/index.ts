@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 import { API_BASE } from '../../utils/constants';
-import { toastMessage } from '../../utils/functions';
 
 import { authStore } from '../store/auth';
 

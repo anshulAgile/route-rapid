@@ -1,17 +1,23 @@
-// import { ApiEndPoints } from 'utils/constants';
 import { ApiEndPoints } from '../../../utils/constants';
 
 import apiInstance from '..';
-import { IUserListReq, IUserListRes } from './type';
+import { IApiSuccess } from 'utils/Types';
+import { ICreatePoliceReq, IPoliceRes } from './type';
 
-export const userAPI = {
-  // SignIn
-  getUserList(data: IUserListReq): Promise<IUserListRes> {
+export const policeAPI = {
+  async getPoliceList(): Promise<IApiSuccess<IPoliceRes>> {
     return apiInstance
-      .post(ApiEndPoints.user.userList, data)
-      .then((response) => response.data)
-      .catch((error) => {
-        throw error?.response?.data;
-      });
-  }
+      .get(
+        `${ApiEndPoints.userList.list("police")}`
+      )
+  },
+  async createPolice(data: ICreatePoliceReq): Promise<any> {
+    return apiInstance.post(ApiEndPoints.createUser, data);
+  },
+  async getDriverList(): Promise<IApiSuccess<IPoliceRes>> {
+    return apiInstance
+      .get(
+        `${ApiEndPoints.userList.list("driver")}`
+      )
+  },
 };

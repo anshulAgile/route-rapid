@@ -17,7 +17,6 @@ export interface IModalProps {
   modalTitle?: string;
   modalDesc?: string;
   handleFinish?: (values: any) => void;
-  formData?: any;
   form?: any;
   confirmBtn?: any;
   phoneNumber?: string;

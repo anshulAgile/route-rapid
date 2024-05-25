@@ -6,16 +6,5 @@
   "trailingComma": "none",
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "importOrder": [
-    "^react$",
-    "<THIRD_PARTY_MODULES>",
-    ".*utils.*",
-    "^services/(.*)$",
-    ".*components.*",
-    "^utils/(.*)$",
-    "^[./]",
-    "/style",
-    "/style/*"
-  ]
+  "importOrderSortSpecifiers": true
 }

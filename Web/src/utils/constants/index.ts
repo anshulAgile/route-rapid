@@ -8,32 +8,14 @@ export const LocalStorageKeys = {
   authToken: `authToken${APP_NAME}`
 };
 
-export const recipientOptions = [
-  { id: '0', name: 'Patient Name', value: 0 },
-  { id: '1', name: 'Patient Name', value: 1 }
-];
-
-export const recurringNotificationOptions = [
-  { id: 1, name: 'Never' },
-  { id: 2, name: 'Daily' },
-  { id: 3, name: 'Weekly' },
-  { id: 4, name: 'Fortnightly' },
-  { id: 5, name: 'Monthly' },
-  { id: 6, name: 'Annually' }
-];
-
-export const INITIAL_ARGS_RESOURCE = {
-  search: '',
-  ordering: '',
-  page: 1,
-  size: 8,
-  categoryId: ''
-};
-
 // Api Endpoint
 export const ApiEndPoints = {
   auth: {
     signIn: `auth/admin/login`,
     logout: `users/logout`
   },
+  userList:{
+    list:(type : "driver"| "police")=>`user/by-role?Role=${type}`,
+  },
+  createUser:`auth/user/register`
 };

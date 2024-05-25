@@ -31,7 +31,7 @@ export const authStore = create<IAuthStore & IAuthAction>((set) => ({
     loaderChange: (status) => set((state) => ({ ...state, isLoading: status })),
     authSuccess: (payload) =>
       set((state) => {
-        apiInstance.defaults.headers.common['Authorization'] = `Token ${payload.token}`;
+        apiInstance.defaults.headers.common['Authorization'] = `Bearer ${payload.token}`;
         localStorage.setItem(LocalStorageKeys.authToken, JSON.stringify(payload.token));
         localStorage.setItem(LocalStorageKeys.user, JSON.stringify(payload));
         return {

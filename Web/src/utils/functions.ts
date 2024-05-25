@@ -117,22 +117,3 @@ export const exportData = (data: any, fileName: string) => {
 export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);
 }
-
-export const getScanPercentage = (percent: number) => {
-  const percentType = Math.sign(percent);
-  let displayMsg = '';
-  switch (percentType) {
-    case 1:
-      displayMsg = `${percent.toFixed(2)}% more then last month`;
-      break;
-    case -1:
-      displayMsg = `${Math.abs(percent).toFixed(2)}% less then last month`;
-      break;
-    case 0:
-      displayMsg = `${percent.toFixed(2)}%`;
-      break;
-    default:
-      break;
-  }
-  return displayMsg;
-};

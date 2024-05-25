@@ -1,8 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import { Col, Form, Row, Space } from 'antd';
 
-import { isAnyValueUndefined, phoneNumberValidator } from '../../../../utils/functions';
+import { phoneNumberValidator } from '../../../../utils/functions';
 
 import Button from '../../Button';
 import { RenderPasswordInput, RenderPhoneNumber, RenderTextInput } from '../../FormField';
@@ -16,32 +16,10 @@ const AddDriver = ({
   width,
   modalTitle,
   form,
-  formData,
   phoneNumber,
   setPhoneNumber
 }: IModalProps) => {
-  const [isFormValid, setIsFormValid] = useState(false);
-  useEffect(() => {
-    if (Object.keys(formData).length) {
-      form.setFieldsValue({
-        firstName: formData?.first_name,
-        lastName: formData?.last_name,
-        email: formData?.email,
-        phoneNumber: formData?.mobile
-      });
-      setPhoneNumber(formData?.mobile);
-      const isEmpty = isAnyValueUndefined(formData);
-      if (!isEmpty) {
-        setIsFormValid(true);
-      }
-    } else {
-      setPhoneNumber('');
-    }
-  }, [form, formData]);
-  const onFieldsChange = (_: any, allFields: any) => {
-    const isValid = allFields.every((field: any) => field.errors.length === 0 && field.value);
-    setIsFormValid(isValid);
-  };
+ 
   return (
     <CommonModalStyle
       width={width ?? 650}
@@ -53,7 +31,7 @@ const AddDriver = ({
       footer={null}
     >
       <h2 className="modal-title">{modalTitle}</h2>
-      <Form form={form} onFinish={handleFinish} onFieldsChange={onFieldsChange}>
+      <Form form={form} onFinish={handleFinish} >
         <Row>
           <Col xs={24} className="row-col-fields">
             <RenderTextInput
@@ -123,7 +101,7 @@ const AddDriver = ({
             <Col xs={24} className="row-col-fields">
               <RenderTextInput
                 col={{ xs: 11, md: 11 }}
-                name="firstName"
+                name="licenseNumber"
                 type="number"
                 placeholder="Licence Number"
                 label="LICENCE NUMBER"
@@ -137,42 +115,37 @@ const AddDriver = ({
               />
             </Col>
           </Row>
-          {!Object.keys(formData).length && (
-            <>
               <RenderPasswordInput
                 col={{ xs: 24, md: 24 }}
                 name="password"
                 type="password"
                 placeholder="Password"
                 label="Password"
-                rules={
-                  !Object.keys(formData).length
-                    ? [
-                        () => ({
-                          validator: (_: any, value: string) => {
-                            if (!value) {
-                              return Promise.reject(new Error('Please enter your password.'));
-                            } else if (/^$|\s+/.test(value)) {
-                              return Promise.reject(
-                                new Error('Password cannot contain blank spaces.')
-                              );
-                            } else if (
-                              !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,16}$/.test(
-                                value
-                              )
-                            ) {
-                              return Promise.reject(
-                                new Error(
-                                  'Password must contain at least 8-16 alphanumeric characters.'
-                                )
-                              );
-                            } else {
-                              return Promise.resolve();
-                            }
-                          }
-                        })
-                      ]
-                    : []
+                rules={ [
+                  () => ({
+                    validator: (_: any, value: string) => {
+                      if (!value) {
+                        return Promise.reject(new Error('Please enter your password.'));
+                      } else if (/^$|\s+/.test(value)) {
+                        return Promise.reject(
+                          new Error('Password cannot contain blank spaces.')
+                        );
+                      } else if (
+                        !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,16}$/.test(
+                          value
+                        )
+                      ) {
+                        return Promise.reject(
+                          new Error(
+                            'Password must contain at least 8-16 alphanumeric characters.'
+                          )
+                        );
+                      } else {
+                        return Promise.resolve();
+                      }
+                    }
+                  })
+                ]
                 }
               />
               <RenderPasswordInput
@@ -181,29 +154,24 @@ const AddDriver = ({
                 type="password"
                 placeholder="Repeat Password"
                 label="Repeat Password"
-                rules={
-                  !Object.keys(formData).length
-                    ? [
-                        {
-                          required: true,
-                          message: 'Please enter confirm password.'
-                        },
-                        ({ getFieldValue }: any) => ({
-                          validator(_: any, value: any) {
-                            if (!value || getFieldValue('password') === value) {
-                              return Promise.resolve();
-                            }
-                            return Promise.reject(
-                              new Error('Confirm password do not match with password.')
-                            );
-                          }
-                        })
-                      ]
-                    : []
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter confirm password.'
+                  },
+                  ({ getFieldValue }: any) => ({
+                    validator(_: any, value: any) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error('Confirm password do not match with password.')
+                      );
+                    }
+                  })
+                ]
                 }
               />
-            </>
-          )}
           <Space className="modal-footer-btn">
             <Button className="cancel-btn" onClick={onCancel}>
               Cancel
@@ -212,7 +180,6 @@ const AddDriver = ({
               className="primary-normal-btn"
               type="primary"
               htmlType="submit"
-              disabled={!isFormValid}
             >
               Save
             </Button>

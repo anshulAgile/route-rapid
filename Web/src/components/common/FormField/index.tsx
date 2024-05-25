@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
-import { ArrowDownOutlined } from '@ant-design/icons';
-import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
+import { ArrowDownOutlined, EyeFilled, EyeInvisibleFilled } from '@ant-design/icons';
 import { Checkbox, Col, DatePicker, Form, Input, Select, Space, TimePicker } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dayjs from 'dayjs';
@@ -466,11 +465,6 @@ export const RenderPhoneNumber: FC<any> = ({
     <Col {...colProps}>
       <Form.Item {...formItemProps} className={`phoneNumberInput inputWithPrefix`}>
         <Space.Compact block style={{ alignItems: 'center' }}>
-          {
-            <span className="addOnBefore">
-              {<img src="/images/united-states.png" alt="flag" />}
-            </span>
-          }
           <PatternFormat
             name={formItemProps.name}
             value={value}
