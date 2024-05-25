@@ -44,7 +44,7 @@ const items = [
     'Driver',
     '2',
     <Link to={ROUTES.driver}>
-     {/* <Driver /> */}
+     <Driver />
     </Link>
   )
 ];
