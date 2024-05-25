@@ -5,17 +5,15 @@ import { Empty, Form, Table } from 'antd';
 
 
 import Button from '../../components/common/Button';
-import { RenderTextInput } from '../../components/common/FormField';
-import { SearchIcon } from '../../components/svg';
 
-import AddDriver from '../../components/common/Modal/AddDriver';
-import { useDriverList } from '../../services/hooks/user';
-import { Wrapper } from '../Police/style';
-import { ICreatePoliceReq } from '../../services/api/user/type';
-import { policeAPI } from '../../services/api/user';
-import { toastMessage } from '../../utils/functions';
-import { keys } from '../../services/hooks/queryKeys';
 import { IApiError } from 'utils/Types';
+import AddDriver from '../../components/common/Modal/AddDriver';
+import { policeAPI } from '../../services/api/user';
+import { ICreatePoliceReq } from '../../services/api/user/type';
+import { keys } from '../../services/hooks/queryKeys';
+import { useDriverList } from '../../services/hooks/user';
+import { toastMessage } from '../../utils/functions';
+import { Wrapper } from '../Police/style';
 
 const Driver = () => {
   const queryClient = useQueryClient();
@@ -107,14 +105,6 @@ const Driver = () => {
                 Add
               </Button>
             </div>
-          </div>
-          <div className="commonSearch">
-            <RenderTextInput
-              colClassName="commonSearchInput"
-              name="search"
-              placeholder="Search Driver"
-              prefix={<SearchIcon />}
-            />
           </div>
           <div className="customTable">
             <Table

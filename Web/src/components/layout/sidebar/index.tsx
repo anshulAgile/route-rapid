@@ -8,7 +8,7 @@ import { ROUTES } from '../../../utils/constants/routes';
 
 import { authStore } from '../../../services/store/auth';
 import Button from '../../common/Button';
-import { AdminIcon } from '../../svg';
+import { AdminIcon, Driver } from '../../svg';
 import { StyledLayout } from '../Layout.Styled';
 import DeleteModal from '../../../components/common/Modal/DeleteModal';
 
