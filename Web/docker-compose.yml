@@ -1,0 +1,91 @@
+version: "3.8"
+x-logging:
+  &my-logging
+  options:
+    max-size: '100m'
+    max-file: '2'
+services:
+  reactjs-sculptme-admin-panel:
+    # deploy:
+    #     resources:
+    #         limits:
+    #           cpus: '0.50'
+    #           memory: 512M
+    #         reservations:
+    #           cpus: '0.25'
+    #           memory: 128M
+    image: $regurl/reactjs-sculptme-admin-panel/reactjs-sculptme-admin-panel:latest
+    hostname: reactjs-sculptme-admin-panel
+    container_name: reactjs-sculptme-admin-panel
+    logging: *my-logging
+    # volumes:
+    #    #- reactjs-sculptme-admin-panel:/wp-content/uploads //wordpress
+    #    - reactjs-sculptme-admin-panel:/var/www/html
+    #    - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    #    - ./wp-config.php:/var/www/html/wp-config.php
+    #    - ./.htaccess:/var/www/html/.htaccess
+    networks:
+      #- default
+      - reactjs-sculptme-admin-panel
+    ############Not Working#######
+    # networks:
+    #   reactjs-sculptme-admin-panel:
+    #     ipv4_address: "20.0.0.18"
+    ############################
+    ports:
+      - 7258:80
+    ## aaplication .env file  
+    ##env_file: /opt/ENVIRONMENT/.env
+#######################################
+# Networks: A default used by all container using bridge
+#######################################
+#networks:
+#  reactjs-sculptme-admin-panel:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 20.0.0.16/29
+# networks:
+#   reactjs-sculptme-admin-panel:
+#     driver: bridge
+#     ipam:
+#      config:
+#        - subnet: 20.0.0.16/29
+#          gateway: 20.0.0.17
+######
+networks:
+  reactjs-sculptme-admin-panel:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 20.0.4.96/29
+         ip_range: 20.0.4.97/29
+         gateway: 20.0.4.97
+         #aux_addresses:
+           #reactjs-sculptme-admin-panel: 20.0.0.18
+           ##host2: 172.28.1.6
+           ##host3: 172.28.1.7
+################not working############
+# networks:
+#   reactjs-sculptme-admin-panel:
+#     driver: bridge
+#     ipam:
+#      config:
+#        - subnet: 20.0.0.16/29
+#        - gateway: 20.0.0.17
+################not working############
+# volumes:
+#   reactjs-sculptme-admin-panel:
+#       driver: local
+#       driver_opts:
+#         type: volume
+#         device: /opt/DockerHomeNAS/MediaFiles/reactjs-sculptme-admin-panel
+#         o: bind
+ #test:
+  #   driver: local
+  #   driver_opts:
+  #     type: volume
+  #     device: /opt/DockerHomeNAS/MediaFiles/node/src
+  #     o: bind 
