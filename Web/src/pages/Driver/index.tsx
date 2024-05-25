@@ -7,7 +7,6 @@ import { debounce, formatPhoneNumber, toastMessage } from '../../utils/functions
 
 import Button from '../../components/common/Button';
 import { RenderTextInput } from '../../components/common/FormField';
-import AddEditAdmin from '../../components/common/Modal/AddEditAdmin';
 import DeleteModal from '../../components/common/Modal/DeleteModal';
 import { DotsIcon, LeftIcon, RightIcon, SearchIcon } from '../../components/svg';
 
@@ -15,6 +14,7 @@ import { adminAPI } from '../../services/api/admin';
 import { useAdminList } from '../../services/hooks/admin';
 import { adminKeys } from '../../services/hooks/queryKeys';
 import { Wrapper } from '../Police/style';
+import AddDriver from '../../components/common/Modal/AddDriver';
 
 const Driver = () => {
   const queryClient = useQueryClient();
@@ -161,7 +161,7 @@ const Driver = () => {
     {
       title: 'MOBILE NUMBER',
       dataIndex: 'mobile',
-      width: 50,
+      width: 150,
       render: (text: string) => {
         return <div>{formatPhoneNumber(text)}</div>;
       }
@@ -179,16 +179,6 @@ const Driver = () => {
     {
       title: 'CITY',
       dataIndex: 'city',
-      width: 50
-    },
-    {
-      title: 'LATITUDE',
-      dataIndex: 'latitude',
-      width: 50
-    },
-    {
-      title: 'LONGITUDE',
-      dataIndex: 'longitude',
       width: 50
     },
     {
@@ -268,11 +258,11 @@ const Driver = () => {
           </div>
         </div>
       </Wrapper>
-      <AddEditAdmin
+      <AddDriver
         open={isAddEditAdminModal}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
-        modalTitle={isEdit ? 'Edit Admin' : 'Add an Admin'}
+        modalTitle={isEdit ? 'Edit Admin' : 'Add Driver'}
         form={form}
         formData={adminData}
         handleFinish={handleAddEditFormSubmit}
